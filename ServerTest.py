@@ -17,6 +17,17 @@ flight_para= {
     'arr_icao':flight_icao
 }
 
+#Error handling and exception handling
+try:
+    #Get request to the specidfied API
+    response = requests.get(Link,flight_para)
+    #Successful response will result in no Exception 
+    response.raise_for_status()
+    print("Request is done successfully!")
+except requests.exception.RequestException as e:
+    print("An error occurred: ",e)
+    exit()
+
 
 
 
