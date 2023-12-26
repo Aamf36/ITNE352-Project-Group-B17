@@ -24,7 +24,7 @@ try:
     #Successful response will result in no Exception 
     response.raise_for_status()
     print("Request is done successfully!")
-except requests.exception.RequestException as e:
+except requests.exceptions.RequestException as e:
     print("An error occurred: ",e)
     exit()
 
