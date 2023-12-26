@@ -24,7 +24,7 @@ try:
     #Successful response will result in no Exception 
     response.raise_for_status()
     print("Request is done successfully!")
-except requests.exception.RequestException as e:
+except requests.exceptions.RequestException as e:
     print("An error occurred: ",e)
     exit()
 
@@ -41,6 +41,14 @@ def connection(socket,address,thread_no,clients):
 
 #Error handling and exception handling
 
+
+
+# Creating the server socket and accepting incoming connections
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# bind the socket to ip address
+server_socket.bind(('127.0.0.1', 66666))
+# listen for incoming connections
+server_socket.listen()
 
 
 
