@@ -11,9 +11,9 @@ Link= 'https://api.aviationstack.com/v1/flights'
 flight_icao = input("Please enter the airport code (ICAO code):  ")
 
 flight_para= {
-    'access_key':'521d31a723165e2347ec1f7b0d8fac7c'
+    'access_key':'521d31a723165e2347ec1f7b0d8fac7c',
     #Step 2: Since that the API should retrieve 100 records of flights
-    'limit':100
+    'limit':100,
     'arr_icao':flight_icao
 }
 
