@@ -12,7 +12,7 @@ flight_icao = input("Please enter the airport code (ICAO code):  ")
 
 flight_para= {
     'access_key':'521d31a723165e2347ec1f7b0d8fac7c'
-    #Since that the API should retrieve 100 records of flights
+    #Step 2: Since that the API should retrieve 100 records of flights
     'limit':100
     'arr_icao':flight_icao
 }
@@ -27,6 +27,20 @@ try:
 except requests.exception.RequestException as e:
     print("An error occurred: ",e)
     exit()
+
+#Step 3: JSON file is defined to store the retrived flight data
+#Message will be printed to point out that the data has been stored successfully
+with open("G_B17.json","w") as file:
+    #dump function is used to push the incoming data from the API to the file
+    json.dump(response.json(),file, indent=4)
+    print("Retrieved data is added sucessfully!")
+
+#Step 4: handling connections between the server and the clients' requests
+def connection(socket,address,thread_no,clients):
+    print('+'*5,'Thread: ',thread_no,' is ready to receive the name from the client', '+'*5)
+
+#Error handling and exception handling
+
 
 
 
