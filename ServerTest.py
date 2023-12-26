@@ -43,6 +43,14 @@ def connection(socket,address,thread_no,clients):
 
 
 
+# Creating the server socket and accepting incoming connections
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# bind the socket to ip address
+server_socket.bind(('127.0.0.1', 66666))
+# listen for incoming connections
+server_socket.listen()
+
+
 
 
 
