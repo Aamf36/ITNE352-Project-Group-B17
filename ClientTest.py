@@ -9,7 +9,7 @@ csock= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 #exception handling for connection
 
-csock.connect(('192.167.0.0', 65535))
+csock.connect(('127.0.0.1', 65535))
 #PySimpleGUI.PopupError("Couldn't connect to server")
 #exit()
 
