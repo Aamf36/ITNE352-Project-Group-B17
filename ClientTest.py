@@ -8,11 +8,10 @@ PySimpleGUI.theme("LightBlue6")
 csock= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 #exception handling for connection
-try:
-    csock.connect(('127.0.0.1', 65535))
-except Exception:
-    PySimpleGUI.PopupError("Couldn't connect to server")
-    exit()
+
+csock.connect(('192.167.0.0', 65535))
+#PySimpleGUI.PopupError("Couldn't connect to server")
+#exit()
 
 # sending username  
 username_layout = [
@@ -55,7 +54,7 @@ while True:
     window.close()
 
     # send the chosen request to the server 
-    csock.send((option).encode("utf-8"))
+    csock.send(option.encode("utf-8"))
 
     # if client chooses invalid option 
     if option != "1" or option != "2" or option != "3" or option != "4" :
