@@ -175,14 +175,26 @@ def connect(socket,address,thread_no,clients):
             socket.close()
             return
 
-
 # Creating the server socket and accepting incoming connections
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# bind the socket to ip address
+# bind the socket to IP address
 server_socket.bind(('127.0.0.1', 66666))
 # listen for incoming connections
 server_socket.listen()
 
+clients = []  # List to keep track of connected clients
+
+# Function to handle each client connection
+def handle_client_connection(client_socket, address):
+    # Your existing code for handling the client connection
+
+# Accept incoming connections and create threads to handle each connection
+while True:
+    client_socket, address = server_socket.accept()
+    print('Accepted connection from:', address)
+    # Create a new thread to handle the client connection
+    client_thread = threading.Thread(target=handle_client_connection, args=(client_socket, address))
+    client_thread.start()
 
 
 
