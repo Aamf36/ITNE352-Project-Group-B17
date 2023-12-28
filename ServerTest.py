@@ -15,14 +15,14 @@ params= {
 }
 
 try: #Error handling and exception handling
-    with open("G_B17Test.json","w")as file:
-    #Get request to the specidfied API
-     response = requests.get('http://api.aviationstack.com/v1/flights?access_key=521d31a723165e2347ec1f7b0d8fac7c', params)
-     if response.status_code!=200:
-        print("Request is not done successfully! Server failure took place.")
-     else:
-        print("Request is done successfully!")
-        exit()
+    with open("G_B17Test.json","w") as file:
+        #Get request to the specidfied API
+        response = requests.get('http://api.aviationstack.com/v1/flights?access_key=521d31a723165e2347ec1f7b0d8fac7c', params)
+        
+        if response.status_code!=200:
+            state="Request is not done successfully! Server failure took place."
+        else:
+            state="Request is done successfully!"
     #dump function is used to push the incoming data from the API to the file
     json.dump(response.json(),file, indent=4)
     print("Retrieved data is added successfully!")
