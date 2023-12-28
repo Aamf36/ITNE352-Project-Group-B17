@@ -11,13 +11,11 @@ csock= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 #exception handling for connection
 try:
-    csock.connect(("ip ", port))
+    csock.connect(('127.0.0.1', 66666))
 except:
     PySimpleGUI.PopupError("couldn't connect to server")
     exit()
 
-
-   
 # sending username  
 username_layout = [
     [PySimpleGUI.Text("please enter your username :", font=("Arial Bold", 12)), 
