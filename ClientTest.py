@@ -57,7 +57,7 @@ while True:
     csock.send(option.encode("utf-8"))
 
     # if client chooses invalid option 
-    if option != "1" or option != "2" or option != "3" or option != "4" :
+    if option != "1" or option != "2" or option != "3" or option != "4" or option != "5":
      print(" Invalid ! please enter a valid option ")
      
     #if client chooses one of the valid options
@@ -92,6 +92,7 @@ while True:
         window = PySimpleGUI.Window("Group_B17",layout,resizable=True)
         event,city= window.read()
         city=city[0]
+        window.close()
     
         # send ICAO to the server 
         csock.send(city.encode("utf-8"))
