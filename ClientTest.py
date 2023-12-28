@@ -13,12 +13,12 @@ csock= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 try:
     csock.connect(('127.0.0.1', 66666))
 except:
-    PySimpleGUI.PopupError("couldn't connect to server")
+    PySimpleGUI.PopupError("Couldn't connect to server")
     exit()
 
 # sending username  
 username_layout = [
-    [PySimpleGUI.Text("please enter your username :", font=("Arial Bold", 12)), 
+    [PySimpleGUI.Text("Please enter your username :", font=("Arial Bold", 12)), 
      PySimpleGUI.Input(key="-INPUT-", font=("Arial Bold", 12))],
     [PySimpleGUI.Submit(), 
      PySimpleGUI.Cancel()]
@@ -45,7 +45,7 @@ while True:
             [PySimpleGUI.Text("1. Show arrived flights" )],
             [PySimpleGUI.Text("2. Show delayed flights" )],
             [PySimpleGUI.Text("3. Show all the flights coming from a specific city" )],
-            [PySimpleGUI.Text("4. show details of a particular flight" )],
+            [PySimpleGUI.Text("4. Show details of a particular flight" )],
             [PySimpleGUI.Text("5. Quit" )]
             [PySimpleGUI.Input()],
             [PySimpleGUI.Button("submit")]
@@ -61,7 +61,7 @@ while True:
 
     # if client chooses invalid option 
     if option != "1" or option != "2" or option != "3" or option != "4" :
-     print(" invalid ! please enter a valid option ")
+     print(" Invalid ! please enter a valid option ")
      
     #if client chooses one of the valid options
      if option == "1":
