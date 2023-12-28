@@ -7,8 +7,6 @@ PySimpleGUI.theme("LightBlue6")
 #step one : establishing the connection to the server 
 csock= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
-
-
 #exception handling for connection
 try:
     csock.connect(('127.0.0.1', 66666))
