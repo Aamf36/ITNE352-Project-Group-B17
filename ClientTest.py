@@ -8,21 +8,20 @@ PySimpleGUI.theme("LightBlue6")
 csock= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 #exception handling for connection
-try:
-    csock.connect(('127.0.0.1', 66666))
-except:
-    PySimpleGUI.PopupError("Couldn't connect to server")
-    exit()
+
+csock.connect(('192.167.0.0', 65535))
+#PySimpleGUI.PopupError("Couldn't connect to server")
+#exit()
 
 # sending username  
 username_layout = [
-    [PySimpleGUI.Text("Please enter your username :", font=("Arial Bold", 12)), 
-     PySimpleGUI.Input(key="-INPUT-", font=("Arial Bold", 12))],
-    [PySimpleGUI.Submit(), 
-     PySimpleGUI.Cancel()]
+    [PySimpleGUI.Text("Please enter your username :", font=("Arial Bold", 12))], 
+    [PySimpleGUI.Input(key="-INPUT-", font=("Arial Bold", 12))],
+    [PySimpleGUI.Submit()], 
+    [PySimpleGUI.Cancel()]
 ]
 # create a window for username 
-window = PySimpleGUI.Window("B17 ", username_layout)
+window = PySimpleGUI.Window("Group_B17 ", username_layout)
 event, uname = window.read()
 uname= uname[0]
 window.close()
@@ -32,7 +31,7 @@ csock.send(uname.encode("utf-8"))
 
 #create windows for later use 
 def window_creation(title,data):
-    window = PySimpleGUI.Window("B17", layout, resizable=True)
+    window = PySimpleGUI.Window("Group_B17", username_layout, resizable=True)
     event, value = window.read()
     window.close()
 
@@ -49,20 +48,20 @@ while True:
             [PySimpleGUI.Button("submit")]
         ]
     #create window for options
-    window= PySimpleGUI.Window("B17",options_layout,resizable=True)
+    window= PySimpleGUI.Window("Group_B17",options_layout,resizable=True)
     event, option = window.read()
     option= option[0]
     window.close()
 
     # send the chosen request to the server 
-    csock.send((option).encode("utf-8"))
+    csock.send(option.encode("utf-8"))
 
     # if client chooses invalid option 
     if option != "1" or option != "2" or option != "3" or option != "4" or option != "5":
      print(" Invalid ! please enter a valid option ")
      
     #if client chooses one of the valid options
-     if option == "1":
+    if option == "1":
         # decode the recv data from the server 
         data = csock.recv(20480).decode("utf-8")
         layout= [
@@ -70,7 +69,7 @@ while True:
             [PySimpleGUI.Column([[PySimpleGUI.Text(data)]],scrollable=True, vertical_scroll_only=True)]
         ]
         #window creation
-        window_creation("B17",layout)
+        window_creation("Group_B17",layout)
 
     elif option == "2":
         # decode the recv data from the server 
@@ -80,7 +79,7 @@ while True:
             [PySimpleGUI.Column([[PySimpleGUI.Text(data)]],scrollable=True, vertical_scroll_only=True)]
         ]
         #window creation
-        window_creation("B17",layout)
+        window_creation("Group_B17",layout)
 
     elif option == "3":
         #prompt user to enter icao code 
@@ -90,7 +89,7 @@ while True:
             [PySimpleGUI.Button("Send")]
         ]
         # window creation 
-        window = PySimpleGUI.Window("B17",layout,resizable=True)
+        window = PySimpleGUI.Window("Group_B17",layout,resizable=True)
         event,city= window.read()
         city=city[0]
         window.close()
@@ -103,7 +102,7 @@ while True:
             [PySimpleGUI.Text("All the flights coming from "+city.capitalize())],
             [PySimpleGUI.Column([[PySimpleGUI.Text(flight_data)]],scrollable=True, vertical_scroll_only=True)]]
         #window creation 
-        window_creation("B17",flight_layout)
+        window_creation("Group_B17",flight_layout)
 
     elif option == "4":
         flight_layout = [
@@ -112,7 +111,7 @@ while True:
             [PySimpleGUI.Button("send")]]
         
         # create window  
-        window = PySimpleGUI.Window("B17", flight_layout, resizable=True)
+        window = PySimpleGUI.Window("Group_B17", flight_layout, resizable=True)
         event, flight = window.read()
         flight= flight[0]
         window.close()
@@ -124,7 +123,7 @@ while True:
         layout=[ 
             [PySimpleGUI.Text(f"Details of flight with this city ICAO/flight number: {flight.capitalize()}")]]
         #window creation 
-        window_creation("B17",layout)
+        window_creation("Group_B17",layout)
 # step three :closing the connection if user chooses quit 
     elif option == "5":
         csock.send((uname + " is disconnected").encode("utf-8"))
