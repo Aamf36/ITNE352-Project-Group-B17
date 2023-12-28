@@ -9,20 +9,20 @@ csock= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 #exception handling for connection
 try:
-    csock.connect(('127.0.0.1', 66666))
-except:
+    csock.connect(('127.0.0.1', 65535))
+except Exception:
     PySimpleGUI.PopupError("Couldn't connect to server")
     exit()
 
 # sending username  
 username_layout = [
-    [PySimpleGUI.Text("Please enter your username :", font=("Arial Bold", 12)), 
-     PySimpleGUI.Input(key="-INPUT-", font=("Arial Bold", 12))],
-    [PySimpleGUI.Submit(), 
-     PySimpleGUI.Cancel()]
+    [PySimpleGUI.Text("Please enter your username :", font=("Arial Bold", 12))], 
+    [PySimpleGUI.Input(key="-INPUT-", font=("Arial Bold", 12))],
+    [PySimpleGUI.Submit()], 
+    [PySimpleGUI.Cancel()]
 ]
 # create a window for username 
-window = PySimpleGUI.Window("B17 ", username_layout)
+window = PySimpleGUI.Window("Group_B17 ", username_layout)
 event, uname = window.read()
 uname= uname[0]
 window.close()
@@ -32,7 +32,7 @@ csock.send(uname.encode("utf-8"))
 
 #create windows for later use 
 def window_creation(title,data):
-    window = PySimpleGUI.Window("B17", layout, resizable=True)
+    window = PySimpleGUI.Window("Group_B17", username_layout, resizable=True)
     event, value = window.read()
     window.close()
 
@@ -49,7 +49,7 @@ while True:
             [PySimpleGUI.Button("submit")]
         ]
     #create window for options
-    window= PySimpleGUI.Window("B17",options_layout,resizable=True)
+    window= PySimpleGUI.Window("Group_B17",options_layout,resizable=True)
     event, option = window.read()
     option= option[0]
     window.close()
@@ -70,7 +70,7 @@ while True:
             [PySimpleGUI.Column([[PySimpleGUI.Text(data)]],scrollable=True, vertical_scroll_only=True)]
         ]
         #window creation
-        window_creation("B17",layout)
+        window_creation("Group_B17",layout)
 
     elif option == "2":
         # decode the recv data from the server 
@@ -80,7 +80,7 @@ while True:
             [PySimpleGUI.Column([[PySimpleGUI.Text(data)]],scrollable=True, vertical_scroll_only=True)]
         ]
         #window creation
-        window_creation("B17",layout)
+        window_creation("Group_B17",layout)
 
     elif option == "3":
         #prompt user to enter icao code 
@@ -90,7 +90,7 @@ while True:
             [PySimpleGUI.Button("Send")]
         ]
         # window creation 
-        window = PySimpleGUI.Window("B17",layout,resizable=True)
+        window = PySimpleGUI.Window("Group_B17",layout,resizable=True)
         event,city= window.read()
         city=city[0]
     
@@ -102,7 +102,7 @@ while True:
             [PySimpleGUI.Text("All the flights coming from "+city.capitalize())],
             [PySimpleGUI.Column([[PySimpleGUI.Text(flight_data)]],scrollable=True, vertical_scroll_only=True)]]
         #window creation 
-        window_creation("B17",flight_layout)
+        window_creation("Group_B17",flight_layout)
 
     elif option == "4":
         flight_layout = [
@@ -111,7 +111,7 @@ while True:
             [PySimpleGUI.Button("send")]]
         
         # create window  
-        window = PySimpleGUI.Window("B17", flight_layout, resizable=True)
+        window = PySimpleGUI.Window("Group_B17", flight_layout, resizable=True)
         event, flight = window.read()
         flight= flight[0]
         window.close()
@@ -123,7 +123,7 @@ while True:
         layout=[ 
             [PySimpleGUI.Text(f"Details of flight with this city ICAO/flight number: {flight.capitalize()}")]]
         #window creation 
-        window_creation("B17",layout)
+        window_creation("Group_B17",layout)
 # step three :closing the connection if user chooses quit 
     elif option == "5":
         csock.send((uname + " is disconnected").encode("utf-8"))

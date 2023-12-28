@@ -6,34 +6,28 @@ import json
 #Step 1: Starting the server/ Enter arr_icao
 print ('='*5,'Welcome to our server! Our server is on.','='*5)
 
-Link= 'https://api.aviationstack.com/v1/flights'
-
 flight_icao = input("Please enter the airport code (ICAO code):  ")
 
-flight_para= {
-    'access_key':'521d31a723165e2347ec1f7b0d8fac7c',
+params= {
     #Step 2: Since that the API should retrieve 100 records of flights
     'limit':100,
     'arr_icao':flight_icao
 }
 
-#Error handling and exception handling
-try:
+try: #Error handling and exception handling
+    with open("G_B17Test.json","w")as file:
     #Get request to the specidfied API
-    response = requests.get(Link,flight_para)
-    #Successful response will result in no Exception 
-    response.raise_for_status()
-    print("Request is done successfully!")
-except requests.exceptions.RequestException as e:
-    print("An error occurred: ",e)
-    exit()
-
-#Step 3: JSON file is defined to store the retrived flight data
-#Message will be printed to point out that the data has been stored successfully
-with open("G_B17_Test.json","w") as file:
+     response = requests.get('http://api.aviationstack.com/v1/flights?access_key=521d31a723165e2347ec1f7b0d8fac7c', params)
+     if response.status_code!=200:
+        print("Request is not done successfully! Server failure took place.")
+     else:
+        print("Request is done successfully!")
+        exit()
     #dump function is used to push the incoming data from the API to the file
     json.dump(response.json(),file, indent=4)
     print("Retrieved data is added successfully!")
+except Exception:
+    print("Error!, failled to retreive data!")
 
 #Step 4: handling connections between the server and the clients' requests
 def connect(socket,address,thread_no,clients):
@@ -178,7 +172,7 @@ def connect(socket,address,thread_no,clients):
 # Creating the server socket and accepting incoming connections
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # bind the socket to IP address
-server_socket.bind(('127.0.0.1', 66666))
+server_socket.bind(('127.0.0.1', 65535))
 # listen for incoming connections
 server_socket.listen()
 
@@ -189,7 +183,7 @@ def handle_client_connection(client_socket, address):
     # Your existing code for handling the client connection
 
 # Accept incoming connections and create threads to handle each connection
-while True:
+ while True:
     client_socket, address = server_socket.accept()
     print('Accepted connection from:', address)
     # Create a new thread to handle the client connection
