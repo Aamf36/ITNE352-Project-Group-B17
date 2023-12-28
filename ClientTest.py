@@ -64,7 +64,7 @@ while True:
      print(" Invalid ! please enter a valid option ")
      
     #if client chooses one of the valid options
-     if option == "1":
+    if option == "1":
         # decode the recv data from the server 
         data = csock.recv(20480).decode("utf-8")
         layout= [

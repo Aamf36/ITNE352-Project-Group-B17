@@ -89,7 +89,7 @@ def connect(socket,address,thread_no,clients):
                     info += "\n Departure Airpot:",(str(flight['departure']['airport']))
                     info += "\n Arrival Time Scheduled:",(str(flight['arrival']['scheduled']))
                     info += "\n Arrival Terminal:",(str(flight['arrival']['terminal']))
-                    info += "\n Arrival Gate:",(str(flight['arrival']['gate']))"
+                    info += "\n Arrival Gate:",(str(flight['arrival']['gate']))
                     info += "\n","-"*20
                 if not info:
                     info='No flights has arrived'
@@ -108,7 +108,7 @@ def connect(socket,address,thread_no,clients):
                     info += "\n Estimated Arrival Time:",(str(flight['arrival']['estimated']))
                     info += "\n Arrival Terminal:",(str(flight['arrival']['terminal']))
                     info += "\n Delay:",(str(flight['arrival']['delay']))
-                    info += "\n Arrival Gate:",(str(flight['arrival']['gate']))"
+                    info += "\n Arrival Gate:",(str(flight['arrival']['gate']))
                     info += "\n","-"*20
                 if not info:
                     info='No delayed flights has been found'
@@ -128,8 +128,8 @@ def connect(socket,address,thread_no,clients):
                     info += "\n Departure Airpot:",(str(flight['departure']['airport']))
                     info += "\n Original Departure Time Scheduled:",(str(flight['arrival']['scheduled'])) #departure actual or estimated?
                     info += "\n Estimated Arrival Time:",(str(flight['arrival']['estimated']))
-                    info += "\n Arrival Gate:",(str(flight['arrival']['gate']))"
-                    info += "\n Departure Gate:",(str(flight['departure']['gate']))"
+                    info += "\n Arrival Gate:",(str(flight['arrival']['gate']))
+                    info += "\n Departure Gate:",(str(flight['departure']['gate']))
                     info += "\n Flight Status:",(str(flight['flight_status']))
                     info += "\n","-"*20
                 if not CityFound:
@@ -145,12 +145,12 @@ def connect(socket,address,thread_no,clients):
                     FlightNoFound=True
                     info += " \n Flight Number:",FlightNO
                     info += "\n Flight IATA Code:",(str(flight['flight']['iata']))
-                    info += "\n Flight Date:",(str(flight['flight_date']))"
+                    info += "\n Flight Date:",(str(flight['flight_date']))
                     info += "\n Departure Airpot:",(str(flight['departure']['airport']))
-                    info += "\n Departure Gate:",(str(flight['departure']['gate']))"
-                    info += "\n Arrival Airport:",(str(flight["arrival"]["airport"]))"
-                    info += "\n Arrival Gate:",(str(flight['arrival']['gate']))"
-                    info += "\n Arrival Terminal:",(str(flight['arrival']['terminal']))"
+                    info += "\n Departure Gate:",(str(flight['departure']['gate']))
+                    info += "\n Arrival Airport:",(str(flight["arrival"]["airport"]))
+                    info += "\n Arrival Gate:",(str(flight['arrival']['gate']))
+                    info += "\n Arrival Terminal:",(str(flight['arrival']['terminal']))
                     info += "\n Flight Status:",(str(flight['flight_status']))
                     info += "\n Scheduled Departure Time:",(str(flight['departure']['scheduled']))
                     info += "\n Scheduled Arrival Time:",(str(flight['arrival']['scheduled']))
