@@ -76,22 +76,26 @@ def connect(socket, address, thread_no, clients):
             data = json.load(file)
 
         if option == '1':
-            print("\n -----All Arrived Flights----- \n")
-            info = ''
+            #print("\n -----All Arrived Flights----- \n")
+            info = []
             for flight in data['data']:
                 if flight['flight_status'] == 'landed':
                     counter += 1
-                    info += " \n Flight:", counter
-                    info += "\n Flight IATA Code:", str(flight['flight']['iata'])
-                    info += "\n Departure Airpot:", str(flight['departure']['airport'])
-                    info += "\n Arrival Time Scheduled:", str(flight['arrival']['scheduled'])
-                    info += "\n Arrival Terminal:", str(flight['arrival']['terminal'])
-                    info += "\n Arrival Gate:", str(flight['arrival']['gate'])
-                    info += "\n", "-" * 20
-                if not info:
-                    info = 'No flights has arrived'
-                socket.send(info.encode('utf-8'))
-
+                    flight_info = (
+                        f"\n Flight:{counter}",
+                        f"\n Flight IATA Code:{flight['flight']['iata']}",
+                        f"\n Departure Airpot:{flight['departure']['airport']}",
+                        f"\n Arrival Time Scheduled:{flight['arrival']['actual']}",
+                        f"\n Arrival Terminal:{flight['arrival']['terminal']}",
+                        f"\n Arrival Gate: {flight['arrival']['gate']}",
+                        "\n" +"-" * 20
+                        )
+                    info.append(flight_info)
+            if not info:
+                info = ['No flights has arrived']
+            info = '\n'.join(' '.join(flight_tuple) for flight_tuple in info)
+            socket.send(info.encode('utf-8'))
+        
         elif option == '2':
             print("\n -----All Delayed Flights----- \n")
             info = ''
@@ -103,7 +107,7 @@ def connect(socket, address, thread_no, clients):
                     info += "\n Departure Airpot:", str(flight['departure']['airport'])
                     info += "\n Original Departure Time Scheduled:", str(flight['arrival']['scheduled'])  # Or departure estimated?
                     info += "\n Estimated Arrival Time:", str(flight['arrival']['estimated'])
-                    info += "\n Arrival Terminal:", str(fate['terminal'])
+                    info += "\n Arrival Terminal:", str(flight['arrival']['terminal'])
                     info += "\n Arrival Gate:", str(flight['arrival']['gate'])
                     info += "\n Delay:", str(flight['arrival']['delay'])
                     info += "\n", "-" * 20
@@ -125,7 +129,7 @@ def connect(socket, address, thread_no, clients):
 
             info = ''
             for flight in data['data']:
-                if flight['departure']['airport'] == city:
+                if flight['departure']['airport'] == city: ##
                     counter += 1
                     info += " \n Flight:", counter
                     info += "\n Flight IATA Code:", str(flight['flight']['iata'])
@@ -169,7 +173,7 @@ def connect(socket, address, thread_no, clients):
 
         elif option == '5':
             # Close the connection with the client
-            print('The client ', username, 'is disconnected')
+            print('The client', username, 'is disconnected')
             clients.remove(username)
             socket.close()
             return
