@@ -14,7 +14,7 @@ try:
     client_socket.connect((server_ip, server_port))
     print("Connected to the server.")
 except ConnectionRefusedError:
-    print("Connection refused. Make sure the server is running.")
+    PySimpleGUI.PopupError("Connection refused. Make sure the server is running.")
     exit()
 except Exception as e:
     print(f"An error occurred while connecting to the server: {e}")
