@@ -3,6 +3,23 @@ import PySimpleGUI as psg
 import signal
 import sys
 
+# Function to create a window and handle the window read event
+def create_window(title, data):
+    layout = [
+        [psg.Text(title)],
+        data,
+        [psg.Button("Submit")]
+    ]
+    window = psg.Window("Group_B17", layout, resizable=True)
+    while True:
+        event, values = window.read()
+        if event == psg.WINDOW_CLOSED:
+            window.close()
+            sys.exit(0)
+        elif event == "Submit":
+            window.close()
+            return values
+
 # theme for the windows
 psg.theme('LightBlue6')
 
@@ -55,10 +72,17 @@ else:
     psg.popup("Username cannot be empty.")
     exit()
 
+# Handle window creation for options
 def window_creation(title, data):
-    window = psg.Window(title, data, resizable=True)
-    event, value = window.read()
+    layout = [
+        [psg.Text(title)],
+        data,
+        [psg.Button("Submit")]
+    ]
+    window = psg.Window("Group_B17", layout, resizable=True)
+    event, values = window.read()
     window.close()
+    return values
 
 # step two: prompt user to choose one of the options
 while True:
@@ -70,33 +94,18 @@ while True:
         [psg.Text("4. Show details of a particular flight")],
         [psg.Text("5. Quit")],
         [psg.Input(key="-INPUT-")],
-        [psg.Button("Submit")]
     ]
+
     # create window for options
-    window = psg.Window("Group_B17", options_layout, resizable=True)
-    event, values = window.read()
+    values = window_creation("Group_B17", options_layout)
     option = values["-INPUT-"]
-    window.close()
 
     # send the chosen request to the server
     client_socket.send(option.encode("utf-8"))
 
-    # Handle window close event
-    if event == psg.WINDOW_CLOSED:
-        client_socket.send((username + " is disconnected").encode("utf-8"))
-        client_socket.close()
-        psg.popup("Window closed. Connection terminated.")
-        print("Connection being terminated!")
-        exit()
-
-    # if client chooses an invalid option
-    if option not in ["1", "2", "3", "4", "5"]:
-        print("Invalid! Please enter a valid option.")
-        break
-
-    # if client chooses one of the valid options
+    # Handle the chosen option
     if option == "1":
-        # decode the received data from the server
+         # decode the received data from the server
         data = client_socket.recv(20480).decode("utf-8")
         layout = [
             [psg.Text("All the arrived flights:", font="Arial")],
@@ -106,7 +115,6 @@ while True:
         window_creation("Group_B17", layout)
 
     elif option == "2":
-        # decode the received data from the server
         data = client_socket.recv(20480).decode("utf-8")
         layout = [
             [psg.Text("All the delayed flights:", font="Arial")],
@@ -123,7 +131,7 @@ while True:
             [psg.Button("Send")]
         ]
         # window creation
-        window = window_creation("Group_B17", layout, resizable=True)
+        window = window_creation("Group_B17", layout)
         event, values = window.read()
         city = values["-INPUT-"]
         window.close()
@@ -153,7 +161,7 @@ while True:
         ]
 
         # create window
-        window = window_creation("Group_B17", flight_layout, resizable=True)
+        window = window_creation("Group_B17", flight_layout)
         event, flight = window.read()
         flight =flight["-INPUT-"]
         window.close()
@@ -173,11 +181,10 @@ while True:
         event, values = window.read()
         window.close()
 
-    # step three: closing the connection if the user chooses to quit
     elif option == "5":
         client_socket.send((username + " is disconnected").encode("utf-8"))
         print("Quitting...")
         client_socket.close()
         psg.popup("Connection terminated.")
         print("Connection terminated!")
-        exit()
+        sys.exit(0)

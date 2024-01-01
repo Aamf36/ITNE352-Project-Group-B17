@@ -10,53 +10,53 @@ print('=' * 5, 'Welcome to our server! Our server is on.', '=' * 5, '\n')
 flight_icao = input("Please enter the airport code (ICAO code): ")
 
 params = {
-    # Step 2: Since that the API should retrieve 100 records of flights
+    # Step 2: Since the API should retrieve 100 records of flights
     'limit': 100,
     'arr_icao': flight_icao
 }
 try:
-    response = requests.get('http://api.aviationstack.com/v1/flights?access_key=9f5375b1daab02a35c8d0e751eb60be1',params)
+    response = requests.get('http://api.aviationstack.com/v1/flights?access_key=9f5375b1daab02a35c8d0e751eb60be1', params=params)
     if response.status_code != 200:
         print("Error! Failed to retrieve data. Status code:", response.status_code)
     else:
         with open("G_B17T.json", "w") as file:
-            json.dump(response.json(),file,indent=4)
+            json.dump(response.json(), file, indent=4)
         print("Retrieved data is added successfully!")
-        print('-'*15)
+        print('-' * 15)
 except NameError:
     print("Error! 'response' is not defined.")
-
 except Exception as e:
-        print('An error occurred: Failed to write data to file')
-        print('~'*10)
-        socket.close()
+    print('An error occurred: Failed to write data to file')
+    print('~' * 10)
+    socket.close()
 
 # Step 4: handling connections between the server and the clients' requests
 def connect(socket, address, thread_no):
-    print('\n', '+'* 5, 'Thread:',thread_no, 'is ready to receive the username from the client with address:',address, '+'* 5)
+    print('\n', '+' * 5, 'Thread:', thread_no, 'is ready to receive the username from the client with address:',
+          address, '+' * 5)
 
     # Error handling and exception handling
     try:
-        username = client_socket.recv(2048).decode('utf-8')
+        username = socket.recv(2048).decode('utf-8')
         if username == "User is terminating the connection":
             print('Unknown User (No username) terminated its connection')
-        elif username =='':
-            print(f"Thread {thread_number}: User did not enter a username. Closing connection.")
-            client_socket.close()
+        elif username == '':
+            print(f"Thread {thread_no}: User did not enter a username. Closing connection.")
+            socket.close()
             return
     except ConnectionResetError:
-        print("Connection with address",address,"closed!")
+        print("Connection with address", address, "closed!")
         return
-    
-    print('\n',username, 'is connected to the server')
+
+    print('\n', username, 'is connected to the server')
     clients.append(username)
     print('\nCurrently connected clients are: ', clients)
-    
+
     while True:
         #
         CityFound = False
         FlightNoFound = False
-        counter = 0  # Inorder to count the number of flights
+        counter = 0  # In order to count the number of flights
         try:
             #
             option = socket.recv(2048).decode('utf-8')
@@ -70,14 +70,14 @@ def connect(socket, address, thread_no):
                 print(username, 'chose the option number', option, ": Details of a Particular Flight")
 
         except ConnectionResetError:
-            print('\n',username, ' is disconnected')
+            print('\n', username, ' is disconnected')
             clients.remove(username)
-            print('~'*10)
+            print('~' * 10)
             socket.close()
             return
-        
-        # Opening the json file, inorder to read the data
-        with open('G_B17Test.json', 'r') as file:
+
+        # Opening the JSON file, in order to read the data
+        with open('G_B17T.json', 'r') as file:
             # Retrieving data
             data = json.load(file)
 
@@ -90,14 +90,14 @@ def connect(socket, address, thread_no):
                     flight_info = (
                         f"\n Flight:{counter}",
                         f"\n Flight IATA Code:{flight['flight']['iata']}",
-                        f"\n Departure Airpot:{flight['departure']['airport']}",
+                        f"\n Departure Airport:{flight['departure']['airport']}",
                         f"\n Arrival Time:{flight['arrival']['actual']}",
                         f"\n Arrival Terminal Number:{flight['arrival']['terminal']}",
                         f"\n Arrival Gate: {flight['arrival']['gate']}",
-                        "\n" +"-" * 20)
+                        "\n" + "-" * 20)
                     info.append(flight_info)
             if not info:
-                info = ['No flights has arrived']
+                info = ['No flights have arrived']
             info = '\n'.join(' '.join(flight_tuple) for flight_tuple in info)
             socket.send(info.encode('utf-8')) #
 
