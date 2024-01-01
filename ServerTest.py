@@ -19,9 +19,8 @@ try:
     if response.status_code != 200:
         print("Error! Failed to retrieve data. Status code:", response.status_code)
     else:
-        response_data=response.json()
         with open("G_B17T.json", "w") as file:
-            json.dump(response_data,file,indent=4)
+            json.dump(response.json(),file,indent=4)
         print("Retrieved data is added successfully!")
         print('-'*15)
 except NameError:
@@ -34,64 +33,55 @@ except Exception as e:
 
 # Step 4: handling connections between the server and the clients' requests
 def connect(socket, address, thread_no):
-    time.sleep(0.5)
     print('\n', '+'* 5, 'Thread:',thread_no, 'is ready to receive the username from the client with address:',address, '+'* 5)
 
     # Error handling and exception handling
     try:
-        username = client_socket.recv(2048).decode('utf-8').strip()
-
+        username = client_socket.recv(2048).decode('utf-8')
+        if username == "User is terminating the connection":
+            print('Unknown User (No username) terminated its connection')
+        elif username =='':
+            print(f"Thread {thread_number}: User did not enter a username. Closing connection.")
+            client_socket.close()
+            return
+    except ConnectionResetError:
+        print("Connection with address",address,"closed!")
+        return
+    
+    print('\n',username, 'is connected to the server')
+    clients.append(username)
+    print('\nCurrently connected clients are: ', clients)
+    
+    while True:
+        #
+        CityFound = False
+        FlightNoFound = False
+        counter = 0  # Inorder to count the number of flights
         try:
-            if username == "User is terminating the connection":
-                print('Unknown User (No username) terminated its connection')
-            
-            elif username =='':
-                print(f"Thread {thread_number}: User did not enter a username. Closing connection.")
-                client_socket.close()
-                return
-
-            else:
-                print('\n',username, 'is connected to the server')
-                clients.append(username)
-                print('\nCurrently connected clients are: ', clients)
+            #
+            option = socket.recv(2048).decode('utf-8')
+            if option == '1':
+                print(username, 'chose the option number', option, ": All Arrived Flights")
+            elif option == '2':
+                print(username, 'chose the option number', option, ": All Delayed Flights")
+            elif option == '3':
+                print(username, 'chose the option number', option, ": All Flights Coming from a Specific City")
+            elif option == '4':
+                print(username, 'chose the option number', option, ": Details of a Particular Flight")
 
         except ConnectionResetError:
-                print('\n',username, ' is disconnected')
-                clients.remove(username)
-                print('~'*10)
-                socket.close()
-                return
-    
-        # add the username of the client to the list defined inorder to return the currently connected clients
-
-        # Listening for requests
-        while True:
-            CityFound = False
-            FlightNoFound = False
-            counter = 0  # Inorder to count the number of flights
-            try:
-                option = socket.recv(2048).decode('utf-8')
-                if option == '1':
-                    print(username, 'chose the option number', option, ": All Arrived Flights")
-                elif option == '2':
-                    print(username, 'chose the option number', option, ": All Delayed Flights")
-                elif option == '3':
-                    print(username, 'chose the option number', option, ": All Flights Coming from a Specific City")
-                elif option == '4':
-                    print(username, 'chose the option number', option, ": Details of a Particular Flight")
-
-            except ConnectionResetError:
-                print('\n',username, ' is disconnected')
-                clients.remove(username)
-                print('~'*10)
-                socket.close()
-                return
+            print('\n',username, ' is disconnected')
+            clients.remove(username)
+            print('~'*10)
+            socket.close()
+            return
         
-        # Opening the json file, inorder to read
+        # Opening the json file, inorder to read the data
         with open('G_B17Test.json', 'r') as file:
             # Retrieving data
             data = json.load(file)
 
+        #
         if option == '1':
             info = []
             for flight in data['data']:
@@ -104,14 +94,14 @@ def connect(socket, address, thread_no):
                         f"\n Arrival Time:{flight['arrival']['actual']}",
                         f"\n Arrival Terminal Number:{flight['arrival']['terminal']}",
                         f"\n Arrival Gate: {flight['arrival']['gate']}",
-                        "\n" +"-" * 20
-                        )
+                        "\n" +"-" * 20)
                     info.append(flight_info)
             if not info:
                 info = ['No flights has arrived']
             info = '\n'.join(' '.join(flight_tuple) for flight_tuple in info)
-            socket.send(info.encode('utf-8'))
-        
+            socket.send(info.encode('utf-8')) #
+
+        #
         elif option == '2':
             info = []
             for flight in data['data']:
@@ -134,6 +124,7 @@ def connect(socket, address, thread_no):
             info = '\n'.join(' '.join(flight_tuple) for flight_tuple in info)
             socket.send(info.encode('utf-8'))
 
+        #
         elif option == '3':
             try:
                 # receiving the city name from the client
@@ -168,6 +159,7 @@ def connect(socket, address, thread_no):
             info = '\n'.join(' '.join(flight_tuple) for flight_tuple in info)
             socket.send(info.encode('utf-8'))
 
+        #
         elif option == '4':
             try:
                 # receiving the flight number from the client
@@ -204,19 +196,13 @@ def connect(socket, address, thread_no):
             info = '\n'.join(' '.join(flight_tuple) for flight_tuple in info)
             socket.send(info.encode('utf-8'))
 
+        #
         elif option == '5':
             # Close the connection with the client
             print('The client', username, 'is disconnected')
             clients.remove(username)
             socket.close()
             return
-
-    except Exception as e:
-        print('An error occurred: The User terminated the connection')
-        print('~'*10)
-        socket.close()
-        return
-
 
 # Step 3: creating threads to handle the clients' requests
 clients = []

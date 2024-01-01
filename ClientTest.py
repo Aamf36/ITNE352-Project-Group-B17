@@ -95,7 +95,7 @@ while True:
         break
 
     # if client chooses one of the valid options
-    elif option == "1":
+    if option == "1":
         # decode the received data from the server
         data = client_socket.recv(20480).decode("utf-8")
         layout = [
@@ -123,12 +123,10 @@ while True:
             [psg.Button("Send")]
         ]
         # window creation
-        window = psg.Window("Group_B17", layout, resizable=True)
+        window = window_creation("Group_B17", layout, resizable=True)
         event, values = window.read()
         city = values["-INPUT-"]
         window.close()
-
-        #Apologies, it seems that the code snippet you provided is incomplete. Could you please provide the complete code so that I can assist you further?
 
         #city = values["-INPUT-"]
 
@@ -141,8 +139,9 @@ while True:
             [psg.Column([[psg.Text(flight_data)]], scrollable=True, vertical_scroll_only=True)]
         ]
         # window creation
-        window_creation("Group_B17", flight_layout)
-
+        window= window_creation("Group_B17", flight_layout)
+        event, values = window.read()
+        window.close()
         #event, values = window.read()
         #window.close()
 
@@ -154,7 +153,7 @@ while True:
         ]
 
         # create window
-        window = psg.Window("Group_B17", flight_layout, resizable=True)
+        window = window_creation("Group_B17", flight_layout, resizable=True)
         event, flight = window.read()
         flight =flight["-INPUT-"]
         window.close()
@@ -170,9 +169,9 @@ while True:
             [psg.Column([[psg.Text(flight_details)]], scrollable=True, vertical_scroll_only=True)]
         ]   
         # window creation
-        window_creation("Group_B17", layout)
-        #event, values = window.read()
-        #window.close()
+        window= window_creation("Group_B17", layout)
+        event, values = window.read()
+        window.close()
 
     # step three: closing the connection if the user chooses to quit
     elif option == "5":
