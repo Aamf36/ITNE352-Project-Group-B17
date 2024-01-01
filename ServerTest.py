@@ -30,23 +30,6 @@ except Exception as e:
         print('An error occurred: Failed to write data to file')
         print('~'*10)
         socket.close()
-        
-
-#if response.status_code != 200:
- #   state = "\nRequest is not done successfully! Server failure took place."
-#else:
-    #state = "\nRequest is done successfully!"
-
-#print(state)
-    
-#if state == "Request is done successfully!":
-    #json.dump(response.json(), file, indent=4)
-    #print("Retrieved data is added successfully!")
-    #print('-'*15)
-#else:
-    #print("Error! Failed to retrieve data!")
-    #print('-'*15)
-
 
 # Step 4: handling connections between the server and the clients' requests
 def connect(socket, address, thread_no):
@@ -78,7 +61,6 @@ def connect(socket, address, thread_no):
                 socket.close()
                 return
     
-            #
         # add the username of the client to the list defined inorder to return the currently connected clients
 
         # Listening for requests
@@ -86,21 +68,8 @@ def connect(socket, address, thread_no):
             CityFound = False
             FlightNoFound = False
             counter = 0  # Inorder to count the number of flights
-            #username = socket.recv(2048).decode('utf-8')
             try:
-                # receiving requests' No. from the client
-                # print('Currently connected clients are: ', clients)
-                #username = socket.recv(2048).decode('utf-8')
-                #print('Currently connected clients are: ', clients)
                 option = socket.recv(2048).decode('utf-8')
-                #if not option:
-                    #clients.remove(username)
-                    #print(username, 'is disconnected')
-                    #print('\nCurrently connected clients are: ', clients)
-                    #print('~'*10)
-                    #socket.close()
-                    #break
-
                 if option == '1':
                     print(username, 'chose the option number', option, ": All Arrived Flights")
                 elif option == '2':
