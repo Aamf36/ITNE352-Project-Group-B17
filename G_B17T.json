@@ -3,7 +3,7 @@
         "limit": 100,
         "offset": 0,
         "count": 100,
-        "total": 474
+        "total": 475
     },
     "data": [
         {
@@ -457,7 +457,7 @@
                 "iata": "BLR",
                 "icao": "VOBL",
                 "terminal": "2",
-                "gate": null,
+                "gate": "C4",
                 "delay": null,
                 "scheduled": "2024-01-02T04:55:00+00:00",
                 "estimated": "2024-01-02T04:55:00+00:00",
@@ -472,7 +472,7 @@
                 "icao": "OBBI",
                 "terminal": null,
                 "gate": null,
-                "baggage": null,
+                "baggage": "4T2",
                 "delay": null,
                 "scheduled": "2024-01-02T07:35:00+00:00",
                 "estimated": "2024-01-02T07:35:00+00:00",
@@ -906,6 +906,52 @@
                 "number": "29",
                 "iata": "FZ29",
                 "icao": "FDB29",
+                "codeshared": null
+            },
+            "aircraft": null,
+            "live": null
+        },
+        {
+            "flight_date": "2024-01-02",
+            "flight_status": "scheduled",
+            "departure": {
+                "airport": "Chhatrapati Shivaji International (Sahar International)",
+                "timezone": "Asia/Kolkata",
+                "iata": "BOM",
+                "icao": "VABB",
+                "terminal": "2",
+                "gate": null,
+                "delay": null,
+                "scheduled": "2024-01-02T06:30:00+00:00",
+                "estimated": "2024-01-02T06:30:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
+            },
+            "arrival": {
+                "airport": "Bahrain International",
+                "timezone": "Asia/Bahrain",
+                "iata": "BAH",
+                "icao": "OBBI",
+                "terminal": null,
+                "gate": null,
+                "baggage": null,
+                "delay": null,
+                "scheduled": "2024-01-02T08:10:00+00:00",
+                "estimated": "2024-01-02T08:10:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
+            },
+            "airline": {
+                "name": "Gulf Air",
+                "iata": "GF",
+                "icao": "GFA"
+            },
+            "flight": {
+                "number": "57",
+                "iata": "GF57",
+                "icao": "GFA57",
                 "codeshared": null
             },
             "aircraft": null,
@@ -4950,59 +4996,6 @@
                 "iata": "GF13",
                 "icao": "GFA13",
                 "codeshared": null
-            },
-            "aircraft": null,
-            "live": null
-        },
-        {
-            "flight_date": "2024-01-01",
-            "flight_status": "landed",
-            "departure": {
-                "airport": "Ninoy Aquino International",
-                "timezone": "Asia/Manila",
-                "iata": "MNL",
-                "icao": "RPLL",
-                "terminal": "3",
-                "gate": null,
-                "delay": 8,
-                "scheduled": "2024-01-01T11:25:00+00:00",
-                "estimated": "2024-01-01T11:25:00+00:00",
-                "actual": "2024-01-01T11:32:00+00:00",
-                "estimated_runway": "2024-01-01T11:32:00+00:00",
-                "actual_runway": "2024-01-01T11:32:00+00:00"
-            },
-            "arrival": {
-                "airport": "Bahrain International",
-                "timezone": "Asia/Bahrain",
-                "iata": "BAH",
-                "icao": "OBBI",
-                "terminal": "1",
-                "gate": null,
-                "baggage": null,
-                "delay": null,
-                "scheduled": "2024-01-01T16:35:00+00:00",
-                "estimated": "2024-01-01T16:35:00+00:00",
-                "actual": "2024-01-01T16:09:00+00:00",
-                "estimated_runway": "2024-01-01T16:09:00+00:00",
-                "actual_runway": "2024-01-01T16:09:00+00:00"
-            },
-            "airline": {
-                "name": "Philippine Airlines",
-                "iata": "PR",
-                "icao": "PAL"
-            },
-            "flight": {
-                "number": "3265",
-                "iata": "PR3265",
-                "icao": "PAL3265",
-                "codeshared": {
-                    "airline_name": "gulf air",
-                    "airline_iata": "gf",
-                    "airline_icao": "gfa",
-                    "flight_number": "155",
-                    "flight_iata": "gf155",
-                    "flight_icao": "gfa155"
-                }
             },
             "aircraft": null,
             "live": null

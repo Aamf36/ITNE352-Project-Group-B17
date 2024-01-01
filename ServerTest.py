@@ -2,6 +2,7 @@ import socket
 import requests
 import threading
 import json
+import time
 
 # Step 1: Starting the server/ Enter arr_icao
 print('=' * 5, 'Welcome to our server! Our server is on.', '=' * 5, '\n')
@@ -33,7 +34,7 @@ except Exception as e:
 
 # Step 4: handling connections between the server and the clients' requests
 def connect(socket, address, thread_no):
-    sleep(0.5)
+    time.sleep(0.5)
     print('\n', '+'* 5, 'Thread:',thread_no, 'is ready to receive the username from the client with address:',address, '+'* 5)
 
     # Error handling and exception handling

@@ -58,17 +58,7 @@ else:
 def window_creation(title, data):
     window = psg.Window(title, data, resizable=True)
     event, value = window.read()
-    #window.close()
-
-
-# sending the username to server
-#client_socket.send(username.encode("utf-8"))
-
-# create windows for later use
-#def window_creation(title, data):
-#    window = PySimpleGUI.Window(title, data, resizable=True)
-#    event, value = window.read()
-#    window.close()
+    window.close()
 
 # step two: prompt user to choose one of the options
 while True:
@@ -84,15 +74,14 @@ while True:
     ]
     # create window for options
     window = psg.Window("Group_B17", options_layout, resizable=True)
-    event, option = window.read()
-    option= option ["-INPUT-"]
+    event, values = window.read()
+    option = values["-INPUT-"]
     window.close()
 
-   # option = values["-INPUT-"]
-
+    # send the chosen request to the server
     client_socket.send(option.encode("utf-8"))
 
-    #Handle window close event
+    # Handle window close event
     if event == psg.WINDOW_CLOSED:
         client_socket.send((username + " is disconnected").encode("utf-8"))
         client_socket.close()
@@ -100,34 +89,21 @@ while True:
         print("Connection being terminated!")
         exit()
 
-#window.close()
-
-
-# send the chosen request to the server
-    #client_socket.send(option.encode("utf-8"))
-
-# if client chooses an invalid option
+    # if client chooses an invalid option
     if option not in ["1", "2", "3", "4", "5"]:
-    #PySimpleGUI.popup("Invalid! Please enter a valid option.") 
         print("Invalid! Please enter a valid option.")
         break
 
-#elif option == None:
-#    print("closing the window!")
-#    window.close()
-
     # if client chooses one of the valid options
-    if option == "1":
-    # decode the received data from the server
+    elif option == "1":
+        # decode the received data from the server
         data = client_socket.recv(20480).decode("utf-8")
         layout = [
             [psg.Text("All the arrived flights:", font="Arial")],
             [psg.Column([[psg.Text(data)]], scrollable=True, vertical_scroll_only=True)]
         ]
-    # window creation
+        # window creation
         window_creation("Group_B17", layout)
-        #event, values = window.read()
-        #window.close()
 
     elif option == "2":
         # decode the received data from the server
@@ -138,8 +114,6 @@ while True:
         ]
         # window creation
         window_creation("Group_B17", layout)
-        #event, values = window.read()
-        #window.close()
 
     elif option == "3":
         # prompt user to enter ICAO code
@@ -150,9 +124,11 @@ while True:
         ]
         # window creation
         window = psg.Window("Group_B17", layout, resizable=True)
-        event, city = window.read()
-        city = city["-INPUT-"]
+        event, values = window.read()
+        city = values["-INPUT-"]
         window.close()
+
+        #Apologies, it seems that the code snippet you provided is incomplete. Could you please provide the complete code so that I can assist you further?
 
         #city = values["-INPUT-"]
 
@@ -203,7 +179,6 @@ while True:
         client_socket.send((username + " is disconnected").encode("utf-8"))
         print("Quitting...")
         client_socket.close()
-        PySimpleGUI.popup("Connection terminated.")
+        psg.popup("Connection terminated.")
         print("Connection terminated!")
         exit()
-
