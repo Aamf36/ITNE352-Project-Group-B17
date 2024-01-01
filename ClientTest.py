@@ -161,7 +161,7 @@ while True:
         ]
 
         # create window
-        window = window_creation("Group_B17", flight_layout)
+        window = window_creation("Group_B17", flight_layout, resizable=True)
         event, flight = window.read()
         flight =flight["-INPUT-"]
         window.close()
