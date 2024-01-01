@@ -15,7 +15,7 @@ params = {
     'arr_icao': flight_icao
 }
 try:
-    response = requests.get('http://api.aviationstack.com/v1/flights?access_key=d8f00e34d7055e143942db980d6bcfee',params)
+    response = requests.get('http://api.aviationstack.com/v1/flights?access_key=9f5375b1daab02a35c8d0e751eb60be1',params)
     if response.status_code != 200:
         print("Error! Failed to retrieve data. Status code:", response.status_code)
     else:
