@@ -208,11 +208,11 @@ thread_count = 0
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Get the local machine name
-host = '127.0.0.2'
+ip = '127.0.0.2'
 port = 55555
 
 # Bind the socket to a specific address and port
-server_socket.bind((host, port))
+server_socket.bind((ip, port))
 
 # Listen for incoming connections
 server_socket.listen()
