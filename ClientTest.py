@@ -3,27 +3,50 @@ import PySimpleGUI as psg
 import signal
 import sys
 
+# theme for the windows
+psg.theme('TealMono')
+
 # Function to create a window and handle the window read event
-def create_window(title, data):
+def Creation(title, layout):
+    window= psg.Window(title, layout, resizable=True)
+    return window
+def ShowF(title, data):
     layout = [
-        [psg.Text(title)],
-        data,
-        [psg.Button("Submit")]
+        [psg.Text("*"*10 + title + "*"*10, font=('Arial',12, 'bold'))],
+        [psg.Column([[psg.Text(data, font=('Arial',10))]], scrollable=True)],
+        [psg.Button('OK')]
     ]
-    window = psg.Window("Group_B17", layout, resizable=True)
+
+    window = Creation(title, layout)
+    event, value = window.read()
+    window.close()
+
+# Function to handle the Ctrl+C signal
+def signal_handler(sig, frame):
+    termination_message = "User is terminating the connection"
+    print(termination_message)
+    client_socket.send(termination_message.encode("utf-8"))
+    client_socket.close()
+    sys.exit(0)
+
+# Register the signal handler for Ctrl+C
+signal.signal(signal.SIGINT, signal_handler)
+
+def Input_Window (title, layout):
+    window = Creation(title, layout)
+
     while True:
         event, values = window.read()
-        if event == psg.WINDOW_CLOSED:
+        if event in (psg.WINDOW_CLOSED, 'Cancel'):
             window.close()
-            sys.exit(0)
-        elif event == "Submit":
+            return None
+            #sys.exit(0)
+        if values['-INPUT-']:
+            input=values['-INPUT-']
             window.close()
-            return values
+            return input
 
-# theme for the windows
-psg.theme('LightBlue6')
-
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # step one: establishing the connection to the server
 server_ip = '127.0.0.2'
@@ -41,36 +64,68 @@ except Exception as e:
 
 # sending username
 username_layout = [
-    [psg.Text("Please enter your username: ", font=("Arial Bold", 12))],
-    [psg.Input(key="-INPUT-", font=("Arial Bold", 12))],
-    [psg.Submit()],
-    [psg.Cancel()]
+    [psg.Text("Please enter your username: ", font=("Arial Bold", 14))],
+    [psg.Input(key="-INPUT-", font=("Arial", 12))],
+    [psg.Submit(),psg.Cancel()]
 ]
+user = Input_Window("Group_B17", username_layout)
+client_socket.send((user).encode('utf-8'))
 
-# Function to handle the Ctrl+C signal
-def signal_handler(sig, frame):
-    termination_message = "User is terminating the connection"
-    print(termination_message)
-    client_socket.send(termination_message.encode("utf-8"))
-    client_socket.close()
-    sys.exit(0)
+while True:
+    options_layout = [
+        [psg.Text("Choose one of the following options: ",font=("Arial", 12))],
+        [psg.Text("1. Show arrived flights",font=("Arial", 12))],
+        [psg.Text("2. Show delayed flights",font=("Arial", 12))],
+        [psg.Text("3. Show all the flights coming from a specific city",font=("Arial", 12))],
+        [psg.Text("4. Show details of a particular flight",font=("Arial", 12))],
+        [psg.Text("5. Quit",font=("Arial", 12))],
+        [psg.Text('Choose a number between 1-5:',font=("Arial Bold", 14)), psg.Input(key="-INPUT-",font=("Arial", 14))],
+        [psg.Button('Send'), psg.Button('Cancel')]
+    ]
+    option= Input_Window('Group_B17', options_layout)
+    client_socket.send((option).encode('utf-8'))
 
-# Register the signal handler for Ctrl+C
-signal.signal(signal.SIGINT, signal_handler)
+    if option == '1':
+        data = client_socket.recv(2048).decode("utf-8")
+        ShowF('Arrived Flights', data)
 
-# create a window for username
-window = psg.Window("Group_B17", username_layout, resizable=True)
-event, values = window.read()
-window.close()
+    elif option == '2':
+        data = client_socket.recv(2048).decode("utf-8")
+        ShowF('Delayed Flights', data)
+    
+    elif option == '3':
+        a_layout=[
+            [psg.Text("Enter the City:  ", font=("Arial", 10))],
+            [psg.Input(key="-INPUT-")],
+            [psg.Button("Send")]
+        ]
+        A_ICAO = Input_Window('All Flights from a Specific Airport',a_layout)
+        client_socket.send(A_ICAO.encode('utf-8'))
+        A_flights= client_socket.recv(20480).decode('utf-8')
+        ShowF(f'All Flights from {A_ICAO.capitalize()}', A_flights)
 
+    elif option == '4':
+        f_layout=[
+            [psg.Text("Enter Flight IATA:  ", font=("Arial", 10))],
+            [psg.Input(key="-INPUT-")],
+            [psg.Button("Send")]
+        ]
+        F_ICAO= Input_Window('Details about a Specific Flight',f_layout)
+        client_socket.send(F_ICAO.encode('utf-8'))
+        A_flights= client_socket.recv(20480).decode('utf-8')
+        ShowF(f'Details of Flight Number: {F_ICAO.capitalize()}', A_flights)
+
+    elif option == "5":
+        client_socket.send((user + " is disconnected").encode("utf-8"))
+        print("Quitting...")
+        client_socket.close()
+        psg.popup("Connection terminated.")
+        print("Connection terminated!")
+        sys.exit(0)
+
+'''
 username = values["-INPUT-"]
 
-# sending the username to server
-if username is not None:
-    client_socket.send(username.encode("utf-8"))
-else:
-    psg.popup("Username cannot be empty.")
-    exit()
 
 # Handle window creation for options
 def window_creation(title, data):
@@ -188,3 +243,4 @@ while True:
         psg.popup("Connection terminated.")
         print("Connection terminated!")
         sys.exit(0)
+        '''
