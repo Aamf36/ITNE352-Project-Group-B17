@@ -39,27 +39,33 @@ def connect(socket, address, thread_no):
     try:
         username = socket.recv(2048).decode('utf-8')
         if username == "User is terminating the connection":
-            print('Unknown User (No username) terminated its connection')
+            print('\nUnknown User (No username) terminated its connection')
+            print('Currently connected clients are: ', clients)
+            print('~' * 10)
+
         elif username == '':
             print(f"Thread {thread_no}: User did not enter a username. Closing connection.")
             socket.close()
             return
+        
+        else: #username !== "User is terminating the connection":
+            print('\n', username, 'is connected to the server')
+            clients.append(username)
+            print('\nCurrently connected clients are: ', clients)
+
     except ConnectionResetError:
         print("Connection with address", address, "closed!")
         return
+    
 
-    print('\n', username, 'is connected to the server')
-    clients.append(username)
-    print('\nCurrently connected clients are: ', clients)
 
     while True:
         #
         CityFound = False
         FlightNoFound = False
         counter = 0  # In order to count the number of flights
+        option = socket.recv(2048).decode('utf-8')
         try:
-            #
-            option = socket.recv(2048).decode('utf-8')
             if option == '1':
                 print(username, 'chose the option number', option, ": All Arrived Flights")
             elif option == '2':
@@ -68,13 +74,15 @@ def connect(socket, address, thread_no):
                 print(username, 'chose the option number', option, ": All Flights Coming from a Specific City")
             elif option == '4':
                 print(username, 'chose the option number', option, ": Details of a Particular Flight")
+            else:
+                print('\n', username, ' is disconnected')
+                clients.remove(username)
+                print('~' * 10)
+                socket.close()
+                return
 
         except ConnectionResetError:
-            print('\n', username, ' is disconnected')
-            clients.remove(username)
-            print('~' * 10)
-            socket.close()
-            return
+            print('\n', username, ' connection was reset by the server.')
 
         # Opening the JSON file, in order to read the data
         with open('G_B17T.json', 'r') as file:

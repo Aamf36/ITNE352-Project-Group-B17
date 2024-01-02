@@ -3,7 +3,7 @@
         "limit": 100,
         "offset": 0,
         "count": 100,
-        "total": 296
+        "total": 299
     },
     "data": [
         {
@@ -15,7 +15,7 @@
                 "iata": "DXB",
                 "icao": "OMDB",
                 "terminal": "1",
-                "gate": null,
+                "gate": "D3",
                 "delay": null,
                 "scheduled": "2024-01-02T07:45:00+00:00",
                 "estimated": "2024-01-02T07:45:00+00:00",
@@ -68,7 +68,7 @@
                 "iata": "DXB",
                 "icao": "OMDB",
                 "terminal": "1",
-                "gate": null,
+                "gate": "D3",
                 "delay": null,
                 "scheduled": "2024-01-02T07:45:00+00:00",
                 "estimated": "2024-01-02T07:45:00+00:00",
@@ -121,7 +121,7 @@
                 "iata": "DXB",
                 "icao": "OMDB",
                 "terminal": "1",
-                "gate": null,
+                "gate": "D3",
                 "delay": null,
                 "scheduled": "2024-01-02T07:45:00+00:00",
                 "estimated": "2024-01-02T07:45:00+00:00",
@@ -397,7 +397,7 @@
         },
         {
             "flight_date": "2024-01-02",
-            "flight_status": "scheduled",
+            "flight_status": "cancelled",
             "departure": {
                 "airport": "East Midlands",
                 "timezone": "Europe/London",
@@ -669,7 +669,7 @@
                 "iata": "SHJ",
                 "icao": "OMSJ",
                 "terminal": null,
-                "gate": "8",
+                "gate": "22",
                 "delay": null,
                 "scheduled": "2024-01-02T08:10:00+00:00",
                 "estimated": "2024-01-02T08:10:00+00:00",
@@ -702,6 +702,158 @@
                 "iata": "G9101",
                 "icao": "ABY101",
                 "codeshared": null
+            },
+            "aircraft": null,
+            "live": null
+        },
+        {
+            "flight_date": "2024-01-02",
+            "flight_status": "scheduled",
+            "departure": {
+                "airport": "Kuwait International",
+                "timezone": "Asia/Kuwait",
+                "iata": "KWI",
+                "icao": "OKKK",
+                "terminal": "4",
+                "gate": null,
+                "delay": null,
+                "scheduled": "2024-01-02T10:30:00+00:00",
+                "estimated": "2024-01-02T10:30:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
+            },
+            "arrival": {
+                "airport": "Bahrain International",
+                "timezone": "Asia/Bahrain",
+                "iata": "BAH",
+                "icao": "OBBI",
+                "terminal": null,
+                "gate": null,
+                "baggage": null,
+                "delay": null,
+                "scheduled": "2024-01-02T11:45:00+00:00",
+                "estimated": "2024-01-02T11:45:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
+            },
+            "airline": {
+                "name": "Kuwait Airways",
+                "iata": "KU",
+                "icao": "KAC"
+            },
+            "flight": {
+                "number": "613",
+                "iata": "KU613",
+                "icao": "KAC613",
+                "codeshared": null
+            },
+            "aircraft": null,
+            "live": null
+        },
+        {
+            "flight_date": "2024-01-02",
+            "flight_status": "scheduled",
+            "departure": {
+                "airport": "Kuwait International",
+                "timezone": "Asia/Kuwait",
+                "iata": "KWI",
+                "icao": "OKKK",
+                "terminal": "4",
+                "gate": null,
+                "delay": null,
+                "scheduled": "2024-01-02T10:30:00+00:00",
+                "estimated": "2024-01-02T10:30:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
+            },
+            "arrival": {
+                "airport": "Bahrain International",
+                "timezone": "Asia/Bahrain",
+                "iata": "BAH",
+                "icao": "OBBI",
+                "terminal": null,
+                "gate": null,
+                "baggage": null,
+                "delay": null,
+                "scheduled": "2024-01-02T11:45:00+00:00",
+                "estimated": "2024-01-02T11:45:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
+            },
+            "airline": {
+                "name": "Ethiopian Airlines",
+                "iata": "ET",
+                "icao": "ETH"
+            },
+            "flight": {
+                "number": "1537",
+                "iata": "ET1537",
+                "icao": "ETH1537",
+                "codeshared": {
+                    "airline_name": "kuwait airways",
+                    "airline_iata": "ku",
+                    "airline_icao": "kac",
+                    "flight_number": "613",
+                    "flight_iata": "ku613",
+                    "flight_icao": "kac613"
+                }
+            },
+            "aircraft": null,
+            "live": null
+        },
+        {
+            "flight_date": "2024-01-02",
+            "flight_status": "scheduled",
+            "departure": {
+                "airport": "Dubai",
+                "timezone": "Asia/Dubai",
+                "iata": "DXB",
+                "icao": "OMDB",
+                "terminal": "1",
+                "gate": null,
+                "delay": null,
+                "scheduled": "2024-01-02T10:40:00+00:00",
+                "estimated": "2024-01-02T10:40:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
+            },
+            "arrival": {
+                "airport": "Bahrain International",
+                "timezone": "Asia/Bahrain",
+                "iata": "BAH",
+                "icao": "OBBI",
+                "terminal": null,
+                "gate": null,
+                "baggage": null,
+                "delay": null,
+                "scheduled": "2024-01-02T11:05:00+00:00",
+                "estimated": "2024-01-02T11:05:00+00:00",
+                "actual": null,
+                "estimated_runway": null,
+                "actual_runway": null
+            },
+            "airline": {
+                "name": "Philippine Airlines",
+                "iata": "PR",
+                "icao": "PAL"
+            },
+            "flight": {
+                "number": "3271",
+                "iata": "PR3271",
+                "icao": "PAL3271",
+                "codeshared": {
+                    "airline_name": "gulf air",
+                    "airline_iata": "gf",
+                    "airline_icao": "gfa",
+                    "flight_number": "503",
+                    "flight_iata": "gf503",
+                    "flight_icao": "gfa503"
+                }
             },
             "aircraft": null,
             "live": null
@@ -1362,7 +1514,7 @@
         },
         {
             "flight_date": "2024-01-02",
-            "flight_status": "scheduled",
+            "flight_status": "active",
             "departure": {
                 "airport": "Chhatrapati Shivaji International (Sahar International)",
                 "timezone": "Asia/Kolkata",
@@ -1373,9 +1525,9 @@
                 "delay": null,
                 "scheduled": "2024-01-02T06:30:00+00:00",
                 "estimated": "2024-01-02T06:30:00+00:00",
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
+                "actual": "2024-01-02T06:30:00+00:00",
+                "estimated_runway": "2024-01-02T06:30:00+00:00",
+                "actual_runway": "2024-01-02T06:30:00+00:00"
             },
             "arrival": {
                 "airport": "Bahrain International",
@@ -1560,7 +1712,7 @@
                 "iata": "DOH",
                 "icao": "OTHH",
                 "terminal": null,
-                "gate": null,
+                "gate": "C40B",
                 "delay": null,
                 "scheduled": "2024-01-02T08:35:00+00:00",
                 "estimated": "2024-01-02T08:35:00+00:00",
@@ -1818,7 +1970,7 @@
                 "iata": "AUH",
                 "icao": "OMAA",
                 "terminal": "A",
-                "gate": null,
+                "gate": "E5",
                 "delay": null,
                 "scheduled": "2024-01-02T09:15:00+00:00",
                 "estimated": "2024-01-02T09:15:00+00:00",
@@ -1871,7 +2023,7 @@
                 "iata": "AUH",
                 "icao": "OMAA",
                 "terminal": "A",
-                "gate": null,
+                "gate": "E5",
                 "delay": null,
                 "scheduled": "2024-01-02T09:15:00+00:00",
                 "estimated": "2024-01-02T09:15:00+00:00",
@@ -1924,7 +2076,7 @@
                 "iata": "AUH",
                 "icao": "OMAA",
                 "terminal": "A",
-                "gate": null,
+                "gate": "E5",
                 "delay": null,
                 "scheduled": "2024-01-02T09:15:00+00:00",
                 "estimated": "2024-01-02T09:15:00+00:00",
@@ -2037,7 +2189,7 @@
                 "iata": "AUH",
                 "icao": "OMAA",
                 "terminal": "A",
-                "gate": null,
+                "gate": "E5",
                 "delay": null,
                 "scheduled": "2024-01-02T09:15:00+00:00",
                 "estimated": "2024-01-02T09:15:00+00:00",
@@ -2090,7 +2242,7 @@
                 "iata": "AUH",
                 "icao": "OMAA",
                 "terminal": "A",
-                "gate": null,
+                "gate": "E5",
                 "delay": null,
                 "scheduled": "2024-01-02T09:15:00+00:00",
                 "estimated": "2024-01-02T09:15:00+00:00",
@@ -2188,7 +2340,7 @@
                 "timezone": "Asia/Dhaka",
                 "iata": "DAC",
                 "icao": "VGHS",
-                "terminal": null,
+                "terminal": "1",
                 "gate": null,
                 "delay": null,
                 "scheduled": "2024-01-02T12:00:00+00:00",
@@ -2327,7 +2479,7 @@
                 "iata": "AUH",
                 "icao": "OMAA",
                 "terminal": "A",
-                "gate": null,
+                "gate": "E5",
                 "delay": null,
                 "scheduled": "2024-01-02T09:15:00+00:00",
                 "estimated": "2024-01-02T09:15:00+00:00",
@@ -3826,7 +3978,7 @@
                 "iata": "DXB",
                 "icao": "OMDB",
                 "terminal": "1",
-                "gate": null,
+                "gate": "D3",
                 "delay": null,
                 "scheduled": "2024-01-02T07:45:00+00:00",
                 "estimated": "2024-01-02T07:45:00+00:00",
@@ -4618,7 +4770,7 @@
                 "terminal": "N",
                 "gate": null,
                 "baggage": null,
-                "delay": 7,
+                "delay": 2,
                 "scheduled": "2024-01-02T02:15:00+00:00",
                 "estimated": "2024-01-02T02:15:00+00:00",
                 "actual": null,
@@ -4664,7 +4816,7 @@
                 "terminal": "N",
                 "gate": null,
                 "baggage": null,
-                "delay": 7,
+                "delay": 2,
                 "scheduled": "2024-01-02T02:15:00+00:00",
                 "estimated": "2024-01-02T02:15:00+00:00",
                 "actual": null,
@@ -4717,7 +4869,7 @@
                 "terminal": "N",
                 "gate": null,
                 "baggage": null,
-                "delay": 10,
+                "delay": 2,
                 "scheduled": "2024-01-01T23:59:00+00:00",
                 "estimated": "2024-01-01T23:59:00+00:00",
                 "actual": "2024-01-02T00:09:00+00:00",
@@ -4847,156 +4999,6 @@
                     "flight_iata": "ba125",
                     "flight_icao": "baw125"
                 }
-            },
-            "aircraft": null,
-            "live": null
-        },
-        {
-            "flight_date": "2024-01-01",
-            "flight_status": "active",
-            "departure": {
-                "airport": "Heathrow",
-                "timezone": "Europe/London",
-                "iata": "LHR",
-                "icao": "EGLL",
-                "terminal": "3",
-                "gate": "27",
-                "delay": 20,
-                "scheduled": "2024-01-01T13:45:00+00:00",
-                "estimated": "2024-01-01T13:45:00+00:00",
-                "actual": "2024-01-01T14:04:00+00:00",
-                "estimated_runway": "2024-01-01T14:04:00+00:00",
-                "actual_runway": "2024-01-01T14:04:00+00:00"
-            },
-            "arrival": {
-                "airport": "Bahrain International",
-                "timezone": "Asia/Bahrain",
-                "iata": "BAH",
-                "icao": "OBBI",
-                "terminal": "N",
-                "gate": null,
-                "baggage": null,
-                "delay": null,
-                "scheduled": "2024-01-01T23:20:00+00:00",
-                "estimated": "2024-01-01T23:20:00+00:00",
-                "actual": null,
-                "estimated_runway": null,
-                "actual_runway": null
-            },
-            "airline": {
-                "name": "Iberia",
-                "iata": "IB",
-                "icao": "IBE"
-            },
-            "flight": {
-                "number": "7361",
-                "iata": "IB7361",
-                "icao": "IBE7361",
-                "codeshared": {
-                    "airline_name": "british airways",
-                    "airline_iata": "ba",
-                    "airline_icao": "baw",
-                    "flight_number": "125",
-                    "flight_iata": "ba125",
-                    "flight_icao": "baw125"
-                }
-            },
-            "aircraft": null,
-            "live": null
-        },
-        {
-            "flight_date": "2024-01-01",
-            "flight_status": "landed",
-            "departure": {
-                "airport": "Thiruvananthapuram International",
-                "timezone": "Asia/Kolkata",
-                "iata": "TRV",
-                "icao": "VOTV",
-                "terminal": "TB",
-                "gate": "3",
-                "delay": 12,
-                "scheduled": "2024-01-01T21:45:00+00:00",
-                "estimated": "2024-01-01T21:45:00+00:00",
-                "actual": "2024-01-01T21:56:00+00:00",
-                "estimated_runway": "2024-01-01T21:56:00+00:00",
-                "actual_runway": "2024-01-01T21:56:00+00:00"
-            },
-            "arrival": {
-                "airport": "Bahrain International",
-                "timezone": "Asia/Bahrain",
-                "iata": "BAH",
-                "icao": "OBBI",
-                "terminal": "N",
-                "gate": null,
-                "baggage": null,
-                "delay": null,
-                "scheduled": "2024-01-02T00:10:00+00:00",
-                "estimated": "2024-01-02T00:10:00+00:00",
-                "actual": "2024-01-02T00:03:00+00:00",
-                "estimated_runway": "2024-01-02T00:03:00+00:00",
-                "actual_runway": "2024-01-02T00:03:00+00:00"
-            },
-            "airline": {
-                "name": "Gulf Air",
-                "iata": "GF",
-                "icao": "GFA"
-            },
-            "flight": {
-                "number": "63",
-                "iata": "GF63",
-                "icao": "GFA63",
-                "codeshared": null
-            },
-            "aircraft": {
-                "registration": "A9C-TD",
-                "iata": "A20N",
-                "icao": "A20N",
-                "icao24": "89409B"
-            },
-            "live": null
-        },
-        {
-            "flight_date": "2024-01-01",
-            "flight_status": "landed",
-            "departure": {
-                "airport": "Halle",
-                "timezone": "Europe/Berlin",
-                "iata": "LEJ",
-                "icao": "EDDP",
-                "terminal": null,
-                "gate": null,
-                "delay": 25,
-                "scheduled": "2024-01-01T05:35:00+00:00",
-                "estimated": "2024-01-01T05:35:00+00:00",
-                "actual": "2024-01-01T05:34:00+00:00",
-                "estimated_runway": "2024-01-01T05:34:00+00:00",
-                "actual_runway": "2024-01-01T05:34:00+00:00"
-            },
-            "arrival": {
-                "airport": "Bahrain International",
-                "timezone": "Asia/Bahrain",
-                "iata": "BAH",
-                "icao": "OBBI",
-                "terminal": "1",
-                "gate": null,
-                "baggage": null,
-                "delay": null,
-                "scheduled": "2024-01-01T12:59:00+00:00",
-                "estimated": "2024-01-01T12:59:00+00:00",
-                "actual": "2024-01-01T12:42:00+00:00",
-                "estimated_runway": "2024-01-01T12:42:00+00:00",
-                "actual_runway": "2024-01-01T12:42:00+00:00"
-            },
-            "airline": {
-                "name": "DHL Air",
-                "iata": "D0",
-                "icao": "DHK"
-            },
-            "flight": {
-                "number": "522",
-                "iata": "D0522",
-                "icao": "DHK522",
-                "codeshared": null
             },
             "aircraft": null,
             "live": null
