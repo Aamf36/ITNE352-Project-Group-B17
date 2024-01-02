@@ -50,7 +50,7 @@ def connect(client_socket, address, thread_no):
             print('~' * 10)
 
         elif username == '':  # Empty username
-            print(f"Thread {thread_no}: User did not enter a username. Closing connection.")
+            print(f"Thread {thread_no}: User did not enter a username. Closing connection.") 
             client_socket.close()  # socket connection is closed
             return
 
