@@ -6,7 +6,7 @@ import json
 import time
 
 # Indicates that the server is on
-print('=' * 5, 'Welcome to our server! Our server is on.', '=' * 5, '\n')
+print ('=' * 5, 'Welcome to our server! Our server is on.', '=' * 5, '\n')
 
 # Prompt the user to enter ICAO Code, that will be stored in flight_icao
 flight_icao = input("Please enter the airport code (ICAO code): ")
