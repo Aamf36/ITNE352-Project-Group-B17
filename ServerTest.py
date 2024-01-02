@@ -1,12 +1,14 @@
+#Necessary Modules are imported
 import socket
 import requests
 import threading
 import json
 import time
 
-# Step 1: Starting the server/ Enter arr_icao
+#Indicates that the server is on
 print('=' * 5, 'Welcome to our server! Our server is on.', '=' * 5, '\n')
 
+#Prompt the user to enter ICAO Code, that will be stored in flight_icao
 flight_icao = input("Please enter the airport code (ICAO code): ")
 
 params = {
@@ -14,14 +16,18 @@ params = {
     'limit': 100,
     'arr_icao': flight_icao
 }
-try:
+
+#Exception Handling
+try: 
+    #Sends a GET request to the link
     response = requests.get('http://api.aviationstack.com/v1/flights?access_key=9f5375b1daab02a35c8d0e751eb60be1', params=params)
+    #Checks the status code of the response
     if response.status_code != 200:
         print("Error! Failed to retrieve data. Status code:", response.status_code)
     else:
         with open("G_B17T.json", "w") as file:
-            json.dump(response.json(), file, indent=4)
-        print("Retrieved data is added successfully!")
+            json.dump(response.json(), file, indent=4) #Writes the JSON response
+        print("Retrieved data is added successfully!") #A success message is printed
         print('-' * 15)
 except NameError:
     print("Error! 'response' is not defined.")
@@ -30,25 +36,25 @@ except Exception as e:
     print('~' * 10)
     socket.close()
 
-# Step 4: handling connections between the server and the clients' requests
+#Function Connect: Responsible for handling connections
 def connect(socket, address, thread_no):
     print('\n', '+' * 5, 'Thread:', thread_no, 'is ready to receive the username from the client with address:',
           address, '+' * 5)
 
-    # Error handling and exception handling
+    #Exception Handling
     try:
-        username = socket.recv(2048).decode('utf-8')
-        if username == "User is terminating the connection":
+        username = socket.recv(2048).decode('utf-8') #Username is received
+        if username == "User is terminating the connection": #Terminated
             print('\nUnknown User (No username) terminated its connection')
             print('Currently connected clients are: ', clients)
             print('~' * 10)
 
-        elif username == '':
+        elif username == '': #Empty username
             print(f"Thread {thread_no}: User did not enter a username. Closing connection.")
-            socket.close()
+            socket.close() #socket connection is closed
             return
         
-        else: #username !== "User is terminating the connection":
+        else:
             print('\n', username, 'is connected to the server')
             clients.append(username)
             print('\nCurrently connected clients are: ', clients)
@@ -57,10 +63,8 @@ def connect(socket, address, thread_no):
         print("Connection with address", address, "closed!")
         return
     
-
-
+    #Handles the client's requests until he disconnects
     while True:
-        #
         CityFound = False
         FlightNoFound = False
         counter = 0  # In order to count the number of flights
@@ -89,7 +93,7 @@ def connect(socket, address, thread_no):
             # Retrieving data
             data = json.load(file)
 
-        #
+        #Client wants to retrieve all arrived flights
         if option == '1':
             info = []
             for flight in data['data']:
@@ -109,7 +113,7 @@ def connect(socket, address, thread_no):
             info = '\n'.join(' '.join(flight_tuple) for flight_tuple in info)
             socket.send(info.encode('utf-8')) #
 
-        #
+        #Client wants to retrieve all delayed flights
         elif option == '2':
             info = []
             for flight in data['data']:
@@ -132,14 +136,14 @@ def connect(socket, address, thread_no):
             info = '\n'.join(' '.join(flight_tuple) for flight_tuple in info)
             socket.send(info.encode('utf-8'))
 
-        #
+        #Client wants to retrieve all incoming flights from a specific city
         elif option == '3':
             try:
                 # receiving the city name from the client
                 city = socket.recv(2048).decode('utf-8')
-                print("The client ", username, "wants to check all flights coming from ", city)
+                print("The client", username, "wants to check all flights coming from ", city)
             except ConnectionResetError:
-                print(username, ' is disconnected')
+                print(username, 'is disconnected')
                 clients.remove(username)
                 socket.close()
                 return
@@ -167,14 +171,14 @@ def connect(socket, address, thread_no):
             info = '\n'.join(' '.join(flight_tuple) for flight_tuple in info)
             socket.send(info.encode('utf-8'))
 
-        #
+        #Client wants to retrieve details of a specific flight (IATA)
         elif option == '4':
             try:
                 # receiving the flight number from the client
                 flight_no = socket.recv(2048).decode('utf-8')
-                print("The client ", username, "wants to check the details of flight number ", flight_no)
+                print("The client", username, "wants to check the details of flight number ", flight_no)
             except ConnectionResetError:
-                print(username, ' is disconnected')
+                print(username, 'is disconnected')
                 clients.remove(username)
                 socket.close()
                 return
@@ -204,7 +208,7 @@ def connect(socket, address, thread_no):
             info = '\n'.join(' '.join(flight_tuple) for flight_tuple in info)
             socket.send(info.encode('utf-8'))
 
-        #
+        #Client wants to disconnect
         elif option == '5':
             # Close the connection with the client
             print('The client', username, 'is disconnected')
@@ -212,20 +216,20 @@ def connect(socket, address, thread_no):
             socket.close()
             return
 
-# Step 3: creating threads to handle the clients' requests
+#Creating threads to handle the clients' requests
 clients = []
 threads = []
 thread_no = 0
 
-# Create a socket object
+#Create a socket 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Define the host and port
-host = '127.0.0.2'
+#Define the ip and port
+ip = '127.0.0.2'
 port = 55555
 
-# Bind the socket to a specific address and port
-server_socket.bind((host, port))
+# Bind the socket to a specific ip and port
+server_socket.bind((ip, port))
 
 # Listen for incoming connections
 server_socket.listen()
@@ -233,14 +237,18 @@ server_socket.listen()
 print('\nWaiting for incoming connections...')
 #print('*'*10)
 
+#An infininte loop, in order to accept incoming connections
 while True:
     # Accept a new connection
     client_socket, address = server_socket.accept()
 
     thread_no += 1
 
-    # Create and start a new thread to handle the client connection
+    # Create a new thread to handle the client connection
     thread = threading.Thread(target=connect, args=(client_socket, address, thread_no))
+
+    #Start the thread
     thread.start()
 
+    #Stores the thread in the thread list
     threads.append(thread)
