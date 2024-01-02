@@ -100,18 +100,18 @@ while True:
 
     #All arrived flights are displayed 
     if option == '1':
-        data = client_socket.recv(2048).decode("utf-8")
+        data = client_socket.recv(20480).decode("utf-8")
         ShowF('Arrived Flights', data)
 
     #All delayed flights are displayed 
     elif option == '2':
-        data = client_socket.recv(2048).decode("utf-8")
+        data = client_socket.recv(20480).decode("utf-8")
         ShowF('Delayed Flights', data)
     
     #All flights coming from a specific city are displayed 
     elif option == '3':
         a_layout=[
-            [psg.Text("Enter the City:  ", font=("Arial", 10))],
+            [psg.Text("Enter the Airport ICAO Code:  ", font=("Arial", 10))],
             [psg.Input(key="-INPUT-")],
             [psg.Button("Send")]
         ]
@@ -133,8 +133,8 @@ while True:
         F_ICAO= Input_Window('Details about a Specific Flight',f_layout)
         #Flight's IATA Code is sent to the server
         client_socket.send(F_ICAO.encode('utf-8'))
-        A_flights= client_socket.recv(20480).decode('utf-8')
-        ShowF(f'Details of Flight Number: {F_ICAO.capitalize()}', A_flights)
+        F_flights= client_socket.recv(20480).decode('utf-8')
+        ShowF(f'Details of Flight Number: {F_ICAO.capitalize()}', F_flights)
 
     #Allows the user to quit 
     elif option == "5":
