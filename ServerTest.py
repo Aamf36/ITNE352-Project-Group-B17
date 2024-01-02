@@ -25,7 +25,7 @@ try:
     if response.status_code != 200:
         print("Error! Failed to retrieve data. Status code:", response.status_code)
     else:
-        with open("G_B17T.json", "w") as file:
+        with open("F_test.json", "w") as file:
             json.dump(response.json(), file, indent=4) #Writes the JSON response
         print("Retrieved data is added successfully!") #A success message is printed
         print('-' * 15)
@@ -122,7 +122,7 @@ def connect(socket, address, thread_no):
                     flight_info = ( 
                         f" \n Flight:{counter}",
                         f"\n Flight IATA Code: {flight['flight']['iata']}",
-                        f"\n Departure Airpot: {flight['departure']['airport']}",
+                        f"\n Departure Airport: {flight['departure']['airport']}",
                         f"\n Original Departure Time:{flight['departure']['scheduled']}", 
                         f"\n Estimated Arrival Time: {flight['arrival']['estimated']}",
                         f"\n Arrival Terminal:{flight['arrival']['terminal']}",
